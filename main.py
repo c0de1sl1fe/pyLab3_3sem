@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import (QWidget, QLabel, QLineEdit, QPushButton,
-                                QTextEdit, QGridLayout, QApplication, QHBoxLayout, )
+                             QTextEdit, QGridLayout, QApplication, QHBoxLayout, )
 
 from PyQt5.QtWidgets import (
     QApplication,
@@ -8,26 +8,30 @@ from PyQt5.QtWidgets import (
     QTabWidget,
     QVBoxLayout,
     QWidget,
+
 )
+
+from PyQt5.QtWidgets import QMainWindow, QPushButton, QApplication
+from PyQt5.QtWidgets import (QMainWindow, QTextEdit,
+                             QAction, QFileDialog, QApplication)
+
 
 class Example(QWidget):
 
     def __init__(self):
         super().__init__()
+        self.mainBtn = QPushButton("Main", self)
+        self.task1Btn = QPushButton("Do task1")
+        self.task2Btn = QPushButton("Do task 2")
+        self.task3Btn = QPushButton("Do task 3")
+        self.clearBtn = QPushButton("clear")
+        self.nextBtn = QPushButton("next")
+        self.mainBtn.clicked.connect(self.click)
 
         self.initUI()
 
     def initUI(self):
 
-        # task1 = QLabel('task1')
-        # task2 = QLabel('task2')
-        # task3 = QLabel('task3')
-
-        # task1Btn = QPushButton("Do task1")
-        # task2Btn = QPushButton("Do task 2")
-        # task3Btn = QPushButton("Do task 3")
-        # clearBtn = QPushButton("clear")
-        # nextBtn = QPushButton("next")
         # grid = QGridLayout()
         # grid.setSpacing(1)
         # grid.setAlignment(1)
@@ -40,8 +44,6 @@ class Example(QWidget):
         # grid.addWidget(task3, 3, 0)
         # grid.addWidget(task3Btn, 3, 1)
 
-        
-
         # grid.addWidget(clearBtn)
         # grid.addWidget(nextBtn)
         # self.setLayout(grid)
@@ -53,26 +55,79 @@ class Example(QWidget):
         self.setLayout(layout)
         tabs = QTabWidget()
         tabs.addTab(self.generalTab(), "general")
-        tabs.addTab(self.generalTab(), "general")
+        tabs.addTab(self.showImageTab(), "show image")
+        tabs.addTab(self.task1Tab(), "task1")
+        tabs.addTab(self.task2Tab(), "task2")
+        tabs.addTab(self.task3Tab(), "task3")
 
         layout.addWidget(tabs)
 
-
-
-
-
-
         self.show()
 
-
-
-
-    def generalTab(self):
+    def generalTab(self):  # Main window with hello-words and descripition what's going on
         generalTab = QWidget()
         layout = QVBoxLayout()
-        layout.addWidget(QPushButton("test1"))
+        # layout.addWidget(QPushButton("test1"))
+        text = QVBoxLayout()
+        line1 = QLabel("hello there")
+        line2 = QLabel("at showImageTab you can view dataset's imgs")
+        line3 = QLabel("at task1Tab create CSV file for dataset's classes")
+        line4 = QLabel("at task2Tab you can copy dataset to new directory")
+        line5 = QLabel("at task3Tab you can copy dataset with new names")
+        text.addWidget(line1)
+        text.addWidget(line2)
+        text.addWidget(line3)
+        text.addWidget(line4)
+        text.addWidget(line5)
+        layout.addLayout(text)
+        # textbox = QTextEdit()
+        # textbox.setPlainText(
+        #     "Hello there!\nat showImageTab you can view dataset's imgs\nat task1Tab create CSV file for dataset's classes\nat task2Tab you can copy dataset to new directory\nat task3Tab you can copy dataset with new names")
+        # layout.addWidget(textbox)
+        layout.addWidget(self.mainBtn)
         generalTab.setLayout(layout)
         return generalTab
+
+    def showImageTab(self):  # image tab where user choose directory and see the img via _next_
+        generalTab = QWidget()
+        layout = QHBoxLayout()
+        clearBtn = QPushButton("clear")
+        nextBtn = QPushButton("next")
+        layout.addWidget(clearBtn)
+        layout.addWidget(nextBtn)
+        generalTab.setLayout(layout)
+        return generalTab
+
+    def task1Tab(self):  # Main window with hello-words and descripition what's going on
+        generalTab = QWidget()
+        layout = QVBoxLayout()
+        task1 = QPushButton('task1')
+        layout.addWidget(task1)
+        generalTab.setLayout(layout)
+        return generalTab
+
+    def task2Tab(self):  # Main window with hello-words and descripition what's going on
+        generalTab = QWidget()
+        layout = QVBoxLayout()
+        task2 = QPushButton('task2')
+        layout.addWidget(task2)
+        generalTab.setLayout(layout)
+        return generalTab
+
+    def task3Tab(self):  # Main window with hello-words and descripition what's going on
+        generalTab = QWidget()
+        layout = QVBoxLayout()
+        task3 = QPushButton('task3')
+        layout.addWidget(task3)
+
+        generalTab.setLayout(layout)
+
+        return generalTab
+
+    def click(self):
+        folderpath = QFileDialog.getExistingDirectory(self, 'Select Folder')
+        print(folderpath)
+        print("Click!")
 
 
 if __name__ == '__main__':
@@ -80,7 +135,6 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = Example()
     sys.exit(app.exec_())
-import sys
 
 
 # class Window(QWidget):
