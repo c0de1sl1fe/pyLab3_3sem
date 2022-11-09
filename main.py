@@ -14,11 +14,13 @@ from PyQt5.QtWidgets import (
 from PyQt5.QtWidgets import QMainWindow, QPushButton, QApplication
 from PyQt5.QtWidgets import (QMainWindow, QTextEdit,
                              QAction, QFileDialog, QApplication)
-
+from PyQt5.QtWidgets import QApplication, QWidget, QLabel
+from PyQt5.QtGui import QIcon, QPixmap
 
 class Example(QWidget):
 
     def __init__(self):
+        '''Constructor'''
         super().__init__()
         self.mainBtn = QPushButton("Main", self)
         self.task1Btn = QPushButton("Do task1")
@@ -31,7 +33,7 @@ class Example(QWidget):
         self.initUI()
 
     def initUI(self):
-
+        '''support constructor function'''
         # grid = QGridLayout()
         # grid.setSpacing(1)
         # grid.setAlignment(1)
@@ -65,6 +67,7 @@ class Example(QWidget):
         self.show()
 
     def generalTab(self):  # Main window with hello-words and descripition what's going on
+        '''main window with hello-words and descripition what's going on'''
         generalTab = QWidget()
         layout = QVBoxLayout()
         # layout.addWidget(QPushButton("test1"))
@@ -89,6 +92,7 @@ class Example(QWidget):
         return generalTab
 
     def showImageTab(self):  # image tab where user choose directory and see the img via _next_
+        '''image tab where user choose directory and see the img via _next_'''
         generalTab = QWidget()
         layout = QHBoxLayout()
         clearBtn = QPushButton("clear")
@@ -98,7 +102,8 @@ class Example(QWidget):
         generalTab.setLayout(layout)
         return generalTab
 
-    def task1Tab(self):  # Main window with hello-words and descripition what's going on
+    def task1Tab(self):  # task1 tab 
+        '''task1 tab'''
         generalTab = QWidget()
         layout = QVBoxLayout()
         task1 = QPushButton('task1')
@@ -106,7 +111,8 @@ class Example(QWidget):
         generalTab.setLayout(layout)
         return generalTab
 
-    def task2Tab(self):  # Main window with hello-words and descripition what's going on
+    def task2Tab(self):  # task2 tab
+        '''task2 tab'''
         generalTab = QWidget()
         layout = QVBoxLayout()
         task2 = QPushButton('task2')
@@ -115,6 +121,7 @@ class Example(QWidget):
         return generalTab
 
     def task3Tab(self):  # Main window with hello-words and descripition what's going on
+        '''task3 tab'''
         generalTab = QWidget()
         layout = QVBoxLayout()
         task3 = QPushButton('task3')
@@ -125,8 +132,15 @@ class Example(QWidget):
         return generalTab
 
     def click(self):
-        folderpath = QFileDialog.getExistingDirectory(self, 'Select Folder')
-        print(folderpath)
+        '''function for testing qt events '''
+        label = QLabel(self)
+        pixmap = QPixmap('blueLobster.jpg')
+        label.setPixmap(pixmap)
+
+        # Optional, resize window to image size
+        #   self.resize(pixmap.width(),pixmap.height())
+        # folderpath = QFileDialog.getExistingDirectory(self, 'Select Folder')
+        # print(folderpath)
         print("Click!")
 
 
