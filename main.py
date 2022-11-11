@@ -1,7 +1,8 @@
 import sys
 import os
 from PyQt5.QtWidgets import (QWidget, QLabel, QLineEdit, QPushButton,
-                             QTextEdit, QGridLayout, QApplication, QHBoxLayout, QRadioButton, QFileDialog, qApp, QDesktopWidget)
+                             QTextEdit, QGridLayout, QApplication, QHBoxLayout,
+                             QRadioButton, QFileDialog, qApp, QDesktopWidget, QMessageBox)
 
 from PyQt5.QtWidgets import (
     QApplication,
@@ -37,9 +38,11 @@ class Example(QWidget):
         self.iterator = Iterator1_img("test", "dataset")
         # self.mainBtn.clicked.connect(self.click)
 
-        self.pixmap = QPixmap('blueLobster.jpg')
-        self.lable = QLabel(self)
+        # self.pixmap = QPixmap('blueLobster.jpg')
+        self.pixmap = QPixmap('.jpg')
 
+        self.lable = QLabel(self)
+        self.name = ""
         self.path = ""
         self.initUI()
 
@@ -86,13 +89,6 @@ class Example(QWidget):
         text.addWidget(line5)
         layout.addLayout(text)
         layout.addWidget(self.mainBtn)
-        generalTab.setLayout(layout)
-        return generalTab
-
-    def showImageTab(self):  # image tab where user choose directory and see the img via _next_
-        '''image tab where user choose directory and see the img via _next_'''
-        generalTab = QWidget()
-        layout = QVBoxLayout()
 
         layoutRadioButton = QHBoxLayout()
         radiobutton = QRadioButton("zebra")
@@ -110,6 +106,15 @@ class Example(QWidget):
         radiobutton.setChecked(True)
         radiobutton.toggled.connect(self.onClicked)
         layoutRadioButton.addWidget(radiobutton)
+        layout.addLayout(layoutRadioButton)
+        generalTab.setLayout(layout)
+        return generalTab
+
+    def showImageTab(self):  # image tab where user choose directory and see the img via _next_
+        '''image tab where user choose directory and see the img via _next_'''
+        generalTab = QWidget()
+        layout = QVBoxLayout()
+
         layoutButton = QHBoxLayout()
         clearBtn = QPushButton("clear")
         clearBtn.clicked.connect(self.clearButton)
@@ -123,16 +128,47 @@ class Example(QWidget):
         layout.addWidget(self.lable)
         self.resize(self.pixmap.width(), self.pixmap.height())
 
-
-        layout.addLayout(layoutRadioButton)
+        # layout.addLayout(layoutRadioButton)
         layout.addLayout(layoutButton)
         generalTab.setLayout(layout)
         return generalTab
 
-    def task1Tab(self):  # task1 tab
-        '''task1 tab'''
+    def tasksTab(self):
         generalTab = QWidget()
         layout = QVBoxLayout()
+
+        generalTab.setLayout(layout)
+
+        layoutRadioButton = QHBoxLayout()
+        radiobutton = QRadioButton("zebra")
+        radiobutton.name = "zebra"
+        radiobutton.toggled.connect(self.onClicked)
+        layoutRadioButton.addWidget(radiobutton)
+
+        radiobutton = QRadioButton("bay horse")
+        radiobutton.name = "bay horse"
+        radiobutton.toggled.connect(self.onClicked)
+        layoutRadioButton.addWidget(radiobutton)
+        radiobutton = QRadioButton("test")
+
+        radiobutton.name = "test"
+        radiobutton.setChecked(True)
+        radiobutton.toggled.connect(self.onClicked)
+        layoutRadioButton.addWidget(radiobutton)
+
+        layoutButton = QHBoxLayout()
+        task1 = QPushButton('task1')
+        task2 = QPushButton('task2')
+        task3 = QPushButton('task3')
+
+        return generalTab
+
+    def task1Tab(self):  # task1 tab
+        '''task1 tab'''
+
+        generalTab = QWidget()
+        layout = QVBoxLayout()
+
         task1 = QPushButton('task1')
         layout.addWidget(task1)
         generalTab.setLayout(layout)
@@ -163,14 +199,10 @@ class Example(QWidget):
         if radioButton.isChecked():
             print("Class is %s" % (radioButton.name))
             self.iterator.setName(radioButton.name)
+            self.name = radioButton.name
 
     def click(self):
         '''function for testing qt events '''
-
-        # Optional, resize window to image size
-        #   self.resize(pixmap.width(),pixmap.height())
-        # folderpath = QFileDialog.getExistingDirectory(self, 'Select Folder')
-        # print(folderpath)
         print("Click!")
 
     def clearButton(self):
@@ -179,19 +211,20 @@ class Example(QWidget):
 
     def nextButton(self):
         try:
-            # print("next", f"{self.iterator.__next__()}")
             self.pixmap = QPixmap(
                 f"{os.path.join(os.path.join(self.iterator.path, self.iterator.name), self.iterator.__next__())}")
             self.lable.setPixmap(self.pixmap)
             # self.resize(self.pixmap.width(), self.pixmap.height())
-
             print(os.path.join(os.path.join(self.iterator.path,
                   self.iterator.name), self.iterator.__next__()))
         except:
             self.pixmap = QPixmap('blueLobster.jpg')
             self.lable.setPixmap(self.pixmap)
-            # self.resize(self.pixmap.width(), self.pixmap.height())
-
+            reply = QMessageBox.question(self, 'Message',
+                                         "empry, clear?", QMessageBox.Yes |
+                                         QMessageBox.No, QMessageBox.Yes)
+            if reply == QMessageBox.Yes:
+                self.iterator.clear()
             print("Error")
 
 
