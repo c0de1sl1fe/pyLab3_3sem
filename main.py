@@ -1,7 +1,7 @@
 import sys
 import os
 from PyQt5.QtWidgets import (QWidget, QLabel, QLineEdit, QPushButton,
-                             QTextEdit, QGridLayout, QApplication, QHBoxLayout, QRadioButton, QFileDialog)
+                             QTextEdit, QGridLayout, QApplication, QHBoxLayout, QRadioButton, QFileDialog, qApp, QDesktopWidget)
 
 from PyQt5.QtWidgets import (
     QApplication,
@@ -36,13 +36,16 @@ class Example(QWidget):
         self.nextBtn = QPushButton("next")
         self.iterator = Iterator1_img("test", "dataset")
         # self.mainBtn.clicked.connect(self.click)
+
+        self.pixmap = QPixmap('blueLobster.jpg')
+        self.lable = QLabel(self)
+
         self.path = ""
         self.initUI()
 
     def initUI(self):
         '''support constructor function'''
 
-        self.setGeometry(300, 300, 350, 300)
         self.setWindowTitle('Lab3')
 
         layout = QVBoxLayout()
@@ -58,6 +61,10 @@ class Example(QWidget):
         self.iterator.setPath(self.path)
         layout.addWidget(tabs)
 
+        self.setGeometry(300, 300, 350, 300)
+        qr = self.frameGeometry()
+        cp = QDesktopWidget().availableGeometry().center()
+        qr.moveCenter(cp)
         self.show()
 
     def generalTab(self):  # Main window with hello-words and descripition what's going on
@@ -110,6 +117,12 @@ class Example(QWidget):
         nextBtn.clicked.connect(self.nextButton)
         layoutButton.addWidget(clearBtn)
         layoutButton.addWidget(nextBtn)
+
+        # pixmap = QPixmap('blueLobster.jpg')
+        self.lable.setPixmap(self.pixmap)
+        layout.addWidget(self.lable)
+        self.resize(self.pixmap.width(), self.pixmap.height())
+
         layout.addLayout(layoutRadioButton)
         layout.addLayout(layoutButton)
         generalTab.setLayout(layout)
@@ -152,9 +165,6 @@ class Example(QWidget):
 
     def click(self):
         '''function for testing qt events '''
-        label = QLabel(self)
-        pixmap = QPixmap('blueLobster.jpg')
-        label.setPixmap(pixmap)
 
         # Optional, resize window to image size
         #   self.resize(pixmap.width(),pixmap.height())
@@ -169,8 +179,18 @@ class Example(QWidget):
     def nextButton(self):
         try:
             # print("next", f"{self.iterator.__next__()}")
-            print(os.path.join(os.path.join(self.iterator.path, self.iterator.name), self.iterator.__next__()))
+            self.pixmap = QPixmap(
+                f"{os.path.join(os.path.join(self.iterator.path, self.iterator.name), self.iterator.__next__())}")
+            self.lable.setPixmap(self.pixmap)
+            # self.resize(self.pixmap.width(), self.pixmap.height())
+
+            print(os.path.join(os.path.join(self.iterator.path,
+                  self.iterator.name), self.iterator.__next__()))
         except:
+            self.pixmap = QPixmap('blueLobster.jpg')
+            self.lable.setPixmap(self.pixmap)
+            # self.resize(self.pixmap.width(), self.pixmap.height())
+
             print("Error")
 
 
