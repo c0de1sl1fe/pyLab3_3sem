@@ -1,6 +1,5 @@
 import os
-
-import tqdm
+# from typing import Self
 
 
 def create_csv(name: str, path: str) -> None:
@@ -41,6 +40,9 @@ class Iterator1_img:
         self.limit = 0
         self.counter = 0
         self.init(name, path)
+
+    # def __iter__(self) -> Self:
+    #     return self
 
     def __next__(self):
         if self.counter < self.limit:
