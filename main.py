@@ -31,18 +31,11 @@ class Example(QWidget):
     def __init__(self):
         '''Constructor'''
         super().__init__()
-        self.mainBtn = QPushButton("Main", self)
-        self.task1Btn = QPushButton("Do task1")
-        self.task2Btn = QPushButton("Do task 2")
-        self.task3Btn = QPushButton("Do task 3")
-        self.clearBtn = QPushButton("clear")
-        self.nextBtn = QPushButton("next")
-        self.iterator = Iterator1_img("test", "dataset")
+        self.mainBtn = QPushButton("Choose dataset dir", self)
         self.mainBtn.clicked.connect(self.__inputPath)
-
+        self.iterator = Iterator1_img("test", "dataset")
         # self.pixmap = QPixmap('blueLobster.jpg')
         self.pixmap = QPixmap('.jpg')
-
         self.lable = QLabel(self)
         self.name = "test"
         self.path = "dataset"
@@ -216,6 +209,7 @@ class Example(QWidget):
         '''service function'''
         tmp = QFileDialog.getExistingDirectory(self, 'Select Folder')
         while not "dataset" in self.path:
+
             tmp = QFileDialog.getExistingDirectory(self, 'Select Folder')
         tmp = self.path
 
