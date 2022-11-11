@@ -5,14 +5,13 @@ import shutil
 import csv
 
 
-def create_dir_copy_randNames(class_name: str, dst: str) -> None:
+def create_dir_copy_randNames(class_name: str,path:str ,dst: str) -> None:
     '''Create array with rand num in 0 to 10000 length of names in source dir 
     and copy with that names to dst dir;
     and create descriprion .csv file like in task 1'''
-# переписать для двух class names
 
-    path = os.path.join("dataset", class_name)
-    names = os.listdir(path)
+    dir = os.path.join(path, class_name)
+    names = os.listdir(dir)
     for j in names:
         if not ".jpg" in j:
             names.remove(j)
@@ -23,7 +22,7 @@ def create_dir_copy_randNames(class_name: str, dst: str) -> None:
         shutil.copy2(s, d)
 
     names = os.listdir(dst)
-    with open(os.path.join(dst, "annotation.csv"), 'w') as file_csv:
+    with open(os.path.join(dst, f"{class_name}_annotation.csv"), 'w') as file_csv:
         for i in names:
             if not ".jpg" in i:
                 names.remove(i)
@@ -35,43 +34,42 @@ def create_dir_copy_randNames(class_name: str, dst: str) -> None:
     file_csv.close
 
 
-def create_dir_copy_randNames_both(class_name1: str, class_name2: str, dst: str) -> None:
+def create_dir_copy_randNames_both(class_name1: str, class_name2: str,path:str ,dst: str) -> None:
     '''Create array with rand num in 0 to 10000 length of names in source dir 
     and copy with that names to dst dir;
     and create descriprion .csv file like in task 1'''
-# переписать для двух class names
 
-    path = os.path.join("dataset", class_name1)
-    names1 = os.listdir(path)
+    dir = os.path.join(path, class_name1)
+    names1 = os.listdir(dir)
     for it1 in names1:
         if not ".jpg" in it1:
             names1.remove(it1)
     print("len 1", len(names1))
-    path = os.path.join("dataset", class_name2)
+    dir = os.path.join("dataset", class_name2)
 
-    names2 = os.listdir(path)
+    names2 = os.listdir(dir)
     for it2 in names2:
         if not ".jpg" in it2:
             names2.remove(it2)
     print("len 2", len(names2))
     tmp = random.sample(range(1, 10001), len(names1)+len(names2))
     names = names1 + names2
-    print(len(names))
-    print(names)
+    print("Total len", len(names))
+  
 
     for i in range(len(names1)):
-        print(i)
+
         s = os.path.join(os.path.join('dataset', class_name1), names[i])
         d = os.path.join(dst, f'{tmp[i]}.jpg')
         shutil.copy2(s, d)
     for j in range(len(names1), len(names)):
-        print(j)
+
         s = os.path.join(os.path.join('dataset', class_name2), names[j])
         d = os.path.join(dst, f'{tmp[j]}.jpg')
         shutil.copy2(s, d)
 
     names = os.listdir(dst)
-    with open(os.path.join(dst, "annotation.csv"), 'w') as file_csv:
+    with open(os.path.join(dst, "both_random_annotation.csv"), 'w') as file_csv:
         for i in names:
             if not ".jpg" in i:
                 names.remove(i)
@@ -81,7 +79,7 @@ def create_dir_copy_randNames_both(class_name1: str, class_name2: str, dst: str)
             file_csv.write("\n")
 
         for m in range(len(names1), len(names)):
-            print(m)
+
             file_csv.write(os.path.abspath(
                 names[m]) + "," + os.path.join(dst, names[m]) + ","+class_name2)
             file_csv.write("\n")

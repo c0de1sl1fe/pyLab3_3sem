@@ -3,11 +3,13 @@ import os
 import tqdm
 
 
-def create_csv(path_dir: str) -> None:
+def create_csv(name: str, path: str) -> None:
     '''It function collect all filenames in dir and create csv file with abs path relative path and class name in cols'''
-    path = os.path.join("dataset", path_dir)
-    names = os.listdir(path)
-    with open(os.path.join(path, f"{path_dir}annotation.csv"), 'w') as file_csv:
+    dir = os.path.join(path, name)
+    names = os.listdir(dir)
+    print(names)
+    print(dir)
+    with open(os.path.join(dir, f"{name}_annotation.csv"), 'w') as file_csv:
         # writer = csv.writer(file_csv)
         for i in names:
             if not ".jpg" in i:
@@ -15,7 +17,7 @@ def create_csv(path_dir: str) -> None:
         for i in names:
             # writer.writerow(str(os.path.abspath(i) + "," + os.path.join(path, i) + "," + path_dir))
             file_csv.write(os.path.abspath(i) + "," +
-                           os.path.join(path, i) + "," + path_dir)
+                           os.path.join(dir, i) + "," + name)
             file_csv.write("\n")
     file_csv.close
 
@@ -66,8 +68,10 @@ class Iterator1_img:
 
     def setName(self, name: str):
         self.init(name, self.path)
-    def setPath(self, path:str):
+
+    def setPath(self, path: str):
         self.init(self.name, path)
+
 
 def run_1(name: str) -> None:
     '''this function just run primary create_csv'''

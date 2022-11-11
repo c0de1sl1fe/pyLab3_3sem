@@ -21,7 +21,9 @@ from PyQt5.QtGui import QIcon, QPixmap
 
 
 # labs imports
-from task1 import Iterator1_img
+from task1 import Iterator1_img, create_csv
+from task2 import copy_dataset
+from task3 import create_dir_copy_randNames, create_dir_copy_randNames_both
 
 
 class Example(QWidget):
@@ -36,14 +38,14 @@ class Example(QWidget):
         self.clearBtn = QPushButton("clear")
         self.nextBtn = QPushButton("next")
         self.iterator = Iterator1_img("test", "dataset")
-        # self.mainBtn.clicked.connect(self.click)
+        self.mainBtn.clicked.connect(self.__inputPath)
 
         # self.pixmap = QPixmap('blueLobster.jpg')
         self.pixmap = QPixmap('.jpg')
 
         self.lable = QLabel(self)
-        self.name = ""
-        self.path = ""
+        self.name = "test"
+        self.path = "dataset"
         self.initUI()
 
     def initUI(self):
@@ -59,8 +61,7 @@ class Example(QWidget):
         tabs.addTab(self.task1Tab(), "task1")
         tabs.addTab(self.task2Tab(), "task2")
         tabs.addTab(self.task3Tab(), "task3")
-        while not "dataset" in self.path:
-            self.path = QFileDialog.getExistingDirectory(self, 'Select Folder')
+
         self.iterator.setPath(self.path)
         layout.addWidget(tabs)
 
@@ -105,6 +106,7 @@ class Example(QWidget):
         radiobutton.name = "test"
         radiobutton.setChecked(True)
         radiobutton.toggled.connect(self.onClicked)
+
         layoutRadioButton.addWidget(radiobutton)
         layout.addLayout(layoutRadioButton)
         generalTab.setLayout(layout)
@@ -168,8 +170,8 @@ class Example(QWidget):
 
         generalTab = QWidget()
         layout = QVBoxLayout()
-
         task1 = QPushButton('task1')
+        task1.clicked.connect(self.task1)
         layout.addWidget(task1)
         generalTab.setLayout(layout)
         return generalTab
@@ -179,6 +181,7 @@ class Example(QWidget):
         generalTab = QWidget()
         layout = QVBoxLayout()
         task2 = QPushButton('task2')
+        task2.clicked.connect(self.task2)
         layout.addWidget(task2)
         generalTab.setLayout(layout)
         return generalTab
@@ -187,8 +190,12 @@ class Example(QWidget):
         '''task3 tab'''
         generalTab = QWidget()
         layout = QVBoxLayout()
-        task3 = QPushButton('task3')
-        layout.addWidget(task3)
+        task3Single = QPushButton('task3Single')
+        task3Single.clicked.connect(self.task3Single)
+        task3Both = QPushButton('task3Both')
+        task3Both.clicked.connect(self.task3Both)
+        layout.addWidget(task3Single)
+        layout.addWidget(task3Both)
 
         generalTab.setLayout(layout)
 
@@ -205,18 +212,29 @@ class Example(QWidget):
         '''function for testing qt events '''
         print("Click!")
 
+    def __inputPath(self) -> None:
+        '''service function'''
+        tmp = QFileDialog.getExistingDirectory(self, 'Select Folder')
+        while not "dataset" in self.path:
+            tmp = QFileDialog.getExistingDirectory(self, 'Select Folder')
+        tmp = self.path
+
     def clearButton(self):
         print("clear")
+        self.pixmap = QPixmap(".jpg")
+        self.lable.setPixmap(self.pixmap)
         self.iterator.clear()
+        self.resize(300, 300)
 
     def nextButton(self):
         try:
+            tmp = os.path.join(os.path.join(self.iterator.path,
+                                            self.iterator.name), self.iterator.__next__())
             self.pixmap = QPixmap(
-                f"{os.path.join(os.path.join(self.iterator.path, self.iterator.name), self.iterator.__next__())}")
+                f"{tmp}")
             self.lable.setPixmap(self.pixmap)
             # self.resize(self.pixmap.width(), self.pixmap.height())
-            print(os.path.join(os.path.join(self.iterator.path,
-                  self.iterator.name), self.iterator.__next__()))
+            print(tmp)
         except:
             self.pixmap = QPixmap('blueLobster.jpg')
             self.lable.setPixmap(self.pixmap)
@@ -226,6 +244,25 @@ class Example(QWidget):
             if reply == QMessageBox.Yes:
                 self.iterator.clear()
             print("Error")
+
+    def task1(self):
+        print("done task1!")
+        create_csv(self.name, self.path)
+
+    def task2(self):
+        print("done task2!")
+        copy_dataset(self.name, self.path, QFileDialog.getExistingDirectory(
+            self, 'Select Folder'))
+
+    def task3Single(self):
+        print("done task3 single!")
+        create_dir_copy_randNames(
+            self.name, self.path, QFileDialog.getExistingDirectory(self, 'Select Folder'))
+
+    def task3Both(self):
+        print("done task3 both!")
+        create_dir_copy_randNames_both(
+            'zebra', 'bay horse', self.path, QFileDialog.getExistingDirectory(self, 'Select Folder'))
 
 
 if __name__ == '__main__':

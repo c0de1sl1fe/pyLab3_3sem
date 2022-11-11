@@ -11,9 +11,9 @@ def create_dir(path: str) -> str:
     return os.path.join(path, 'dataset')
 
 
-def copy_dataset(class_name_copy: str, dst: str) -> None:
+def copy_dataset(class_name_copy: str, path:str, dst: str) -> None:
     '''copy all files in class_name_copy directory in data set to dst'''
-    for item in os.listdir(os.path.join('dataset', class_name_copy)):
+    for item in os.listdir(os.path.join(path, class_name_copy)):
         if ".jpg" in item:
             s = os.path.join(os.path.join('dataset', class_name_copy), item)
             d = os.path.join(dst, f'{class_name_copy}_{item}')
