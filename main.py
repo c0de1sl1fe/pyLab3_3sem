@@ -123,6 +123,7 @@ class Example(QWidget):
         layout.addWidget(self.lable)
         self.resize(self.pixmap.width(), self.pixmap.height())
 
+
         layout.addLayout(layoutRadioButton)
         layout.addLayout(layoutButton)
         generalTab.setLayout(layout)
