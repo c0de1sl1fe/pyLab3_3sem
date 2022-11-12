@@ -78,24 +78,24 @@ class Example(QWidget):
         layout.addLayout(text)
         layout.addWidget(self.mainBtn)
 
-        layoutRadioButton = QHBoxLayout()
-        radiobutton = QRadioButton("zebra")
-        radiobutton.name = "zebra"
-        radiobutton.toggled.connect(self.onClicked)
-        layoutRadioButton.addWidget(radiobutton)
+        # layoutRadioButton = QHBoxLayout()
+        # radiobutton = QRadioButton("zebra")
+        # radiobutton.name = "zebra"
+        # radiobutton.toggled.connect(self.onClicked)
+        # layoutRadioButton.addWidget(radiobutton)
 
-        radiobutton = QRadioButton("bay horse")
-        radiobutton.name = "bay horse"
-        radiobutton.toggled.connect(self.onClicked)
-        layoutRadioButton.addWidget(radiobutton)
-        radiobutton = QRadioButton("test")
+        # radiobutton = QRadioButton("bay horse")
+        # radiobutton.name = "bay horse"
+        # radiobutton.toggled.connect(self.onClicked)
+        # layoutRadioButton.addWidget(radiobutton)
+        # radiobutton = QRadioButton("test")
 
-        radiobutton.name = "test"
-        radiobutton.setChecked(True)
-        radiobutton.toggled.connect(self.onClicked)
+        # radiobutton.name = "test"
+        # radiobutton.setChecked(True)
+        # radiobutton.toggled.connect(self.onClicked)
 
-        layoutRadioButton.addWidget(radiobutton)
-        layout.addLayout(layoutRadioButton)
+        # layoutRadioButton.addWidget(radiobutton)
+        # layout.addLayout(layoutRadioButton)
         generalTab.setLayout(layout)
         return generalTab
 
@@ -113,7 +113,6 @@ class Example(QWidget):
         layoutButton.addWidget(clearBtn)
         layoutButton.addWidget(nextBtn)
 
-        # pixmap = QPixmap('blueLobster.jpg')
         self.lable.setPixmap(self.pixmap)
         layout.addWidget(self.lable)
         self.resize(self.pixmap.width(), self.pixmap.height())
@@ -144,45 +143,64 @@ class Example(QWidget):
         layout.addWidget(task3Single)
         layout.addWidget(task3Both)
 
+        layoutRadioButton = QHBoxLayout()
+        radiobutton = QRadioButton("zebra")
+        radiobutton.name = "zebra"
+        radiobutton.toggled.connect(self.onClicked)
+        layoutRadioButton.addWidget(radiobutton)
+
+        radiobutton = QRadioButton("bay horse")
+        radiobutton.name = "bay horse"
+        radiobutton.toggled.connect(self.onClicked)
+        layoutRadioButton.addWidget(radiobutton)
+        radiobutton = QRadioButton("test")
+
+        radiobutton.name = "test"
+        radiobutton.setChecked(True)
+        radiobutton.toggled.connect(self.onClicked)
+
+        layoutRadioButton.addWidget(radiobutton)
+        layout.addLayout(layoutRadioButton)
+
         generalTab.setLayout(layout)
         return generalTab
 
-    def task1Tab(self) -> QWidget:    # task1 tab
-        '''task1 tab'''
+    # def task1Tab(self) -> QWidget:    # task1 tab
+    #     '''task1 tab'''
 
-        generalTab = QWidget()
-        layout = QVBoxLayout()
-        task1 = QPushButton('task1')
-        task1.clicked.connect(self.task1)
-        layout.addWidget(task1)
-        generalTab.setLayout(layout)
-        return generalTab
+    #     generalTab = QWidget()
+    #     layout = QVBoxLayout()
+    #     task1 = QPushButton('task1')
+    #     task1.clicked.connect(self.task1)
+    #     layout.addWidget(task1)
+    #     generalTab.setLayout(layout)
+    #     return generalTab
 
-    def task2Tab(self) -> QWidget:   # task2 tab
-        '''task2 tab'''
-        generalTab = QWidget()
-        layout = QVBoxLayout()
-        task2 = QPushButton('task2')
-        task2.clicked.connect(self.task2)
-        layout.addWidget(task2)
-        generalTab.setLayout(layout)
-        return generalTab
+    # def task2Tab(self) -> QWidget:   # task2 tab
+    #     '''task2 tab'''
+    #     generalTab = QWidget()
+    #     layout = QVBoxLayout()
+    #     task2 = QPushButton('task2')
+    #     task2.clicked.connect(self.task2)
+    #     layout.addWidget(task2)
+    #     generalTab.setLayout(layout)
+    #     return generalTab
 
-    # Main window with hello-words and descripition what's going on
-    def task3Tab(self) -> QWidget:
-        '''task3 tab'''
-        generalTab = QWidget()
-        layout = QVBoxLayout()
-        task3Single = QPushButton('task3Single')
-        task3Single.clicked.connect(self.task3Single)
-        task3Both = QPushButton('task3Both')
-        task3Both.clicked.connect(self.task3Both)
-        layout.addWidget(task3Single)
-        layout.addWidget(task3Both)
+    # # Main window with hello-words and descripition what's going on
+    # def task3Tab(self) -> QWidget:
+    #     '''task3 tab'''
+    #     generalTab = QWidget()
+    #     layout = QVBoxLayout()
+    #     task3Single = QPushButton('task3Single')
+    #     task3Single.clicked.connect(self.task3Single)
+    #     task3Both = QPushButton('task3Both')
+    #     task3Both.clicked.connect(self.task3Both)
+    #     layout.addWidget(task3Single)
+    #     layout.addWidget(task3Both)
 
-        generalTab.setLayout(layout)
+    #     generalTab.setLayout(layout)
 
-        return generalTab
+    #     return generalTab
 
     def onClicked(self) -> None:
         radioButton = self.sender()
