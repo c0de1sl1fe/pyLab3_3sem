@@ -43,9 +43,7 @@ class Example(QWidget):
         tabs = QTabWidget()
         tabs.addTab(self.generalTab(), "general")
         tabs.addTab(self.showImageTab(), "show image")
-        # tabs.addTab(self.task1Tab(), "task1")
-        # tabs.addTab(self.task2Tab(), "task2")
-        # tabs.addTab(self.task3Tab(), "task3")
+
         tabs.addTab(self.tasksTab(), "tasksTab")
         self.iterator.setPath(self.path)
         layout.addWidget(tabs)
