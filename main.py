@@ -1,12 +1,11 @@
 import sys
 import os
+# from typing import Self
+
 from PyQt5.QtWidgets import (QWidget, QLabel, QLineEdit, QPushButton,
                              QTextEdit, QGridLayout, QApplication, QHBoxLayout,
                              QRadioButton, QFileDialog, qApp, QDesktopWidget, QMessageBox, QTabWidget, QVBoxLayout, QMainWindow, )
 from PyQt5.QtGui import QIcon, QPixmap
-
-
-# from typing import Self
 
 # labs imports
 from task1 import Iterator1_img, create_csv
@@ -15,7 +14,6 @@ from task3 import create_dir_copy_randNames, create_dir_copy_randNames_both
 
 
 class Example(QWidget):
-
     def __init__(self) -> None:
         '''Constructor'''
         super().__init__()
