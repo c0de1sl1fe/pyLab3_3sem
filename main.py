@@ -54,6 +54,7 @@ class Example(QWidget):
         qr = self.frameGeometry()
         cp = QDesktopWidget().availableGeometry().center()
         qr.moveCenter(cp)
+        self.setWindowIcon(QIcon('6112_Logo_git_prefinal.jpg'))
         self.show()
 
     # Main window with hello-words and descripition what's going on

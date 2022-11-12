@@ -58,10 +58,11 @@ class Iterator1_img:
         self.name = name
         # self.names = os.listdir(os.path.join("dataset", name))
         self.names = os.listdir(os.path.join(self.path, self.name))
-
+        # print(self.names)
         for i in self.names:
             if not ".jpg" in i:
                 self.names.remove(i)
+        # print(self.names)
         self.limit = len(self.names)
         self.counter = 0
 

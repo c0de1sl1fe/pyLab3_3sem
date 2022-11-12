@@ -5,7 +5,7 @@ import shutil
 import csv
 
 
-def create_dir_copy_randNames(class_name: str,path:str ,dst: str) -> None:
+def create_dir_copy_randNames(class_name: str, path: str, dst: str) -> None:
     '''Create array with rand num in 0 to 10000 length of names in source dir 
     and copy with that names to dst dir;
     and create descriprion .csv file like in task 1'''
@@ -13,8 +13,10 @@ def create_dir_copy_randNames(class_name: str,path:str ,dst: str) -> None:
     dir = os.path.join(path, class_name)
     names = os.listdir(dir)
     for j in names:
+        # print(j)
         if not ".jpg" in j:
             names.remove(j)
+    # print(names)
     tmp = random.sample(range(1, 10001), len(names))
     for i in range(len(names)):
         s = os.path.join(os.path.join('dataset', class_name), names[i])
@@ -34,7 +36,7 @@ def create_dir_copy_randNames(class_name: str,path:str ,dst: str) -> None:
     file_csv.close
 
 
-def create_dir_copy_randNames_both(class_name1: str, class_name2: str,path:str ,dst: str) -> None:
+def create_dir_copy_randNames_both(class_name1: str, class_name2: str, path: str, dst: str) -> None:
     '''Create array with rand num in 0 to 10000 length of names in source dir 
     and copy with that names to dst dir;
     and create descriprion .csv file like in task 1'''
@@ -55,7 +57,6 @@ def create_dir_copy_randNames_both(class_name1: str, class_name2: str,path:str ,
     tmp = random.sample(range(1, 10001), len(names1)+len(names2))
     names = names1 + names2
     print("Total len", len(names))
-  
 
     for i in range(len(names1)):
 
