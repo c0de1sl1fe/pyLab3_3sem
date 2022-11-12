@@ -13,10 +13,10 @@ def create_dir_copy_randNames(class_name: str, path: str, dst: str) -> None:
     dir = os.path.join(path, class_name)
     names = os.listdir(dir)
     for j in names:
-        # print(j)
+        print(j)
         if not ".jpg" in j:
             names.remove(j)
-    # print(names)
+    print(names)
     tmp = random.sample(range(1, 10001), len(names))
     for i in range(len(names)):
         s = os.path.join(os.path.join('dataset', class_name), names[i])
