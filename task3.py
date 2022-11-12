@@ -21,7 +21,7 @@ def create_dir_copy_randNames(class_name: str, path: str, dst: str) -> None:
     print(names)
     tmp = random.sample(range(1, 10001), len(names))
     for i in range(len(names)):
-        s = os.path.join(os.path.join('dataset', class_name), names[i])
+        s = os.path.join(os.path.join(path, class_name), names[i])
         d = os.path.join(dst, f'{tmp[i]}.jpg')
         shutil.copy2(s, d)
 
@@ -51,7 +51,7 @@ def create_dir_copy_randNames_both(class_name1: str, class_name2: str, path: str
     #         names1.remove(it1)
     names1 = list(filter(lambda tmp: ".jpg" in tmp, names1))
     print("len 1", len(names1))
-    dir = os.path.join("dataset", class_name2)
+    dir = os.path.join(path, class_name2)
 
     names2 = os.listdir(dir)
     # for it2 in names2:
@@ -65,12 +65,12 @@ def create_dir_copy_randNames_both(class_name1: str, class_name2: str, path: str
 
     for i in range(len(names1)):
 
-        s = os.path.join(os.path.join('dataset', class_name1), names[i])
+        s = os.path.join(os.path.join(path, class_name1), names[i])
         d = os.path.join(dst, f'{tmp[i]}.jpg')
         shutil.copy2(s, d)
     for j in range(len(names1), len(names)):
 
-        s = os.path.join(os.path.join('dataset', class_name2), names[j])
+        s = os.path.join(os.path.join(path, class_name2), names[j])
         d = os.path.join(dst, f'{tmp[j]}.jpg')
         shutil.copy2(s, d)
 

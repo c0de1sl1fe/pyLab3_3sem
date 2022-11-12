@@ -11,13 +11,25 @@ def create_dir(path: str) -> str:
     return os.path.join(path, 'dataset')
 
 
-def copy_dataset(class_name_copy: str, path:str, dst: str) -> None:
+def copy_dataset(class_name_copy: str, path: str, dst: str) -> None:
     '''copy all files in class_name_copy directory in data set to dst'''
     for item in os.listdir(os.path.join(path, class_name_copy)):
         if ".jpg" in item:
-            s = os.path.join(os.path.join('dataset', class_name_copy), item)
+            s = os.path.join(os.path.join(path, class_name_copy), item)
             d = os.path.join(dst, f'{class_name_copy}_{item}')
             shutil.copy2(s, d)
+    names = os.listdir(dst)
+    with open(os.path.join(dst, f"{class_name_copy}_annotation.csv"), 'w') as file_csv:
+        # for i in names:
+        #     if not ".jpg" in i:
+        #         names.remove(i)
+        names = list(filter(lambda tmp: ".jpg" in tmp, names))
+        for i in names:
+            # writer.writerow(str(os.path.abspath(i) + "," + os.path.join(path, i) + "," + path_dir))
+            file_csv.write(os.path.abspath(i) + "," +
+                           os.path.join(dst, i) + "," + class_name_copy)
+            file_csv.write("\n")
+    file_csv.close
 
 
 def iterator2(class_name: str, path: str) -> str:

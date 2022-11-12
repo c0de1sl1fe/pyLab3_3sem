@@ -1,5 +1,6 @@
 import os
 # from typing import Self
+from typing import Optional
 
 
 def create_csv(name: str, path: str) -> None:
@@ -35,6 +36,7 @@ def iterator1(name: str) -> str:
 
 class Iterator1_img:
     def __init__(self, name: str, path: str):
+        '''constructor'''
         self.path = ""
         self.name = ""
         self.names = []
@@ -45,7 +47,8 @@ class Iterator1_img:
     # def __iter__(self) -> Self:
     #     return self
 
-    def __next__(self):
+    def __next__(self) -> Optional[str]:
+        '''next operator'''
         if self.counter < self.limit:
             self.counter += 1
             return self.names[self.counter - 1]
@@ -53,6 +56,7 @@ class Iterator1_img:
             raise StopIteration
 
     def init(self, name: str, path: str):
+        '''function for constructor'''
         if not "dataset" in path:
             raise ("error")
         self.path = path
@@ -69,13 +73,16 @@ class Iterator1_img:
         self.limit = len(self.names)
         self.counter = 0
 
-    def clear(self):
+    def clear(self) -> None:
+        '''set coutner to zero = iteration will start again'''
         self.counter = 0
 
-    def setName(self, name: str):
+    def setName(self, name: str) -> None:
+        '''set class name'''
         self.init(name, self.path)
 
-    def setPath(self, path: str):
+    def setPath(self, path: str) -> None:
+        '''set path to dataset'''
         self.init(self.name, path)
 
 

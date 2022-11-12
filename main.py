@@ -37,13 +37,12 @@ class Example(QWidget):
         '''support constructor function'''
 
         self.setWindowTitle('Lab3')
-
+        self.setWindowIcon(QIcon('6112_Logo_git_prefinal.jpg'))
         layout = QVBoxLayout()
         self.setLayout(layout)
         tabs = QTabWidget()
         tabs.addTab(self.generalTab(), "general")
         tabs.addTab(self.showImageTab(), "show image")
-
         tabs.addTab(self.tasksTab(), "tasksTab")
         self.iterator.setPath(self.path)
         layout.addWidget(tabs)
@@ -52,7 +51,7 @@ class Example(QWidget):
         qr = self.frameGeometry()
         cp = QDesktopWidget().availableGeometry().center()
         qr.moveCenter(cp)
-        self.setWindowIcon(QIcon('6112_Logo_git_prefinal.jpg'))
+
         self.show()
 
     # Main window with hello-words and descripition what's going on
@@ -76,24 +75,6 @@ class Example(QWidget):
         layout.addLayout(text)
         layout.addWidget(self.mainBtn)
 
-        # layoutRadioButton = QHBoxLayout()
-        # radiobutton = QRadioButton("zebra")
-        # radiobutton.name = "zebra"
-        # radiobutton.toggled.connect(self.onClicked)
-        # layoutRadioButton.addWidget(radiobutton)
-
-        # radiobutton = QRadioButton("bay horse")
-        # radiobutton.name = "bay horse"
-        # radiobutton.toggled.connect(self.onClicked)
-        # layoutRadioButton.addWidget(radiobutton)
-        # radiobutton = QRadioButton("test")
-
-        # radiobutton.name = "test"
-        # radiobutton.setChecked(True)
-        # radiobutton.toggled.connect(self.onClicked)
-
-        # layoutRadioButton.addWidget(radiobutton)
-        # layout.addLayout(layoutRadioButton)
         generalTab.setLayout(layout)
         return generalTab
 
@@ -163,44 +144,8 @@ class Example(QWidget):
         generalTab.setLayout(layout)
         return generalTab
 
-    # def task1Tab(self) -> QWidget:    # task1 tab
-    #     '''task1 tab'''
-
-    #     generalTab = QWidget()
-    #     layout = QVBoxLayout()
-    #     task1 = QPushButton('task1')
-    #     task1.clicked.connect(self.task1)
-    #     layout.addWidget(task1)
-    #     generalTab.setLayout(layout)
-    #     return generalTab
-
-    # def task2Tab(self) -> QWidget:   # task2 tab
-    #     '''task2 tab'''
-    #     generalTab = QWidget()
-    #     layout = QVBoxLayout()
-    #     task2 = QPushButton('task2')
-    #     task2.clicked.connect(self.task2)
-    #     layout.addWidget(task2)
-    #     generalTab.setLayout(layout)
-    #     return generalTab
-
-    # # Main window with hello-words and descripition what's going on
-    # def task3Tab(self) -> QWidget:
-    #     '''task3 tab'''
-    #     generalTab = QWidget()
-    #     layout = QVBoxLayout()
-    #     task3Single = QPushButton('task3Single')
-    #     task3Single.clicked.connect(self.task3Single)
-    #     task3Both = QPushButton('task3Both')
-    #     task3Both.clicked.connect(self.task3Both)
-    #     layout.addWidget(task3Single)
-    #     layout.addWidget(task3Both)
-
-    #     generalTab.setLayout(layout)
-
-    #     return generalTab
-
     def onClicked(self) -> None:
+        '''change class name'''
         radioButton = self.sender()
         if radioButton.isChecked():
             print("Class is %s" % (radioButton.name))
@@ -209,7 +154,7 @@ class Example(QWidget):
 
     def __inputPath(self) -> None:
         '''service function'''
-        print("innnnpppuuut")
+        print("input path")
         tmp = QFileDialog.getExistingDirectory(self, 'Select Folder')
         while not "dataset" in tmp:
             print("error")
@@ -219,6 +164,7 @@ class Example(QWidget):
         tmp = self.path
 
     def clearButton(self) -> None:
+        '''toggle clear and start iteration again'''
         print("clear")
         self.pixmap = QPixmap(".jpg")
         self.lable.setPixmap(self.pixmap)
@@ -226,6 +172,7 @@ class Example(QWidget):
         self.resize(300, 300)
 
     def nextButton(self) -> None:
+        '''toggle next and operate with exception'''
         try:
             tmp = os.path.join(os.path.join(self.iterator.path,
                                             self.iterator.name), self.iterator.__next__())
@@ -244,20 +191,24 @@ class Example(QWidget):
             print("Error")
 
     def task1(self) -> None:
+        '''function for task1'''
         print("done task1!")
         create_csv(self.name, self.path)
 
     def task2(self) -> None:
+        '''function for task2'''
         print("done task2!")
         copy_dataset(self.name, self.path, QFileDialog.getExistingDirectory(
             self, 'Select Folder'))
 
     def task3Single(self) -> None:
+        '''function for task3 for single class'''
         print("done task3 single!")
         create_dir_copy_randNames(
             self.name, self.path, QFileDialog.getExistingDirectory(self, 'Select Folder'))
 
     def task3Both(self) -> None:
+        '''function for task3 for both classes'''
         print("done task3 both!")
         create_dir_copy_randNames_both(
             'zebra', 'bay horse', self.path, QFileDialog.getExistingDirectory(self, 'Select Folder'))
@@ -268,42 +219,3 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = Example()
     sys.exit(app.exec_())
-
-
-# class Window(QWidget):
-#     def __init__(self):
-#         super().__init__()
-#         self.setWindowTitle("QTabWidget Example")
-#         self.resize(270, 110)
-#         # Create a top-level layout
-#         layout = QVBoxLayout()
-#         self.setLayout(layout)
-#         # Create the tab widget with two tabs
-#         tabs = QTabWidget()
-#         tabs.addTab(self.generalTabUI(), "General")
-#         tabs.addTab(self.networkTabUI(), "Network")
-#         layout.addWidget(tabs)
-
-#     def generalTabUI(self):
-#         """Create the General page UI."""
-#         generalTab = QWidget()
-#         layout = QVBoxLayout()
-#         layout.addWidget(QCheckBox("General Option 1"))
-#         layout.addWidget(QCheckBox("General Option 2"))
-#         generalTab.setLayout(layout)
-#         return generalTab
-
-#     def networkTabUI(self):
-#         """Create the Network page UI."""
-#         networkTab = QWidget()
-#         layout = QVBoxLayout()
-#         layout.addWidget(QCheckBox("Network Option 1"))
-#         layout.addWidget(QCheckBox("Network Option 2"))
-#         networkTab.setLayout(layout)
-#         return networkTab
-
-# if __name__ == "__main__":
-#     app = QApplication(sys.argv)
-#     window = Window()
-#     window.show()
-#     sys.exit(app.exec_())
