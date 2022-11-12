@@ -7,8 +7,8 @@ def create_csv(name: str, path: str) -> None:
     '''It function collect all filenames in dir and create csv file with abs path relative path and class name in cols'''
     dir = os.path.join(path, name)
     names = os.listdir(dir)
-    print(names)
-    print(dir)
+    # print(names)
+    # print(dir)
     with open(os.path.join(dir, f"{name}_annotation.csv"), 'w') as file_csv:
         # writer = csv.writer(file_csv)
         names = list(filter(lambda tmp: ".jpg" in tmp, names))
@@ -64,12 +64,10 @@ class Iterator1_img:
 
         self.names = os.listdir(os.path.join(self.path, self.name))
 
-        print(self.names)
         self.names = list(filter(lambda tmp: ".jpg" in tmp, self.names))
         # for i in self.names:
         #     if not ".jpg" in i:
         #         self.names.remove(i)
-        print(self.names)
         self.limit = len(self.names)
         self.counter = 0
 
