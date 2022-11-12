@@ -154,12 +154,14 @@ class Example(QWidget):
         '''service function'''
         print("input path")
         tmp = QFileDialog.getExistingDirectory(self, 'Select Folder')
-        while not "dataset" in tmp:
+        if not "dataset" in tmp:
             print("error")
             QMessageBox.critical(
                 self, "Wrong dir", "please choose dir with dataset", QMessageBox.Ok)
-            tmp = QFileDialog.getExistingDirectory(self, 'Select Folder')
-        tmp = self.path
+        else:
+            print("prev dir is ", self.path)
+            self.path = tmp 
+            print("new dir is ", self.path)
 
     def clearButton(self) -> None:
         '''toggle clear and start iteration again'''
