@@ -4,8 +4,8 @@ import os
 
 from PyQt5.QtWidgets import (QWidget, QLabel, QLineEdit, QPushButton,
                              QTextEdit, QGridLayout, QApplication, QHBoxLayout,
-                             QRadioButton, QFileDialog, qApp, QDesktopWidget, QMessageBox, QTabWidget, QVBoxLayout, QMainWindow, )
-from PyQt5.QtGui import QIcon, QPixmap
+                             QRadioButton, QFileDialog, qApp, QDesktopWidget, QMessageBox, QTabWidget, QVBoxLayout, QMainWindow)
+from PyQt5.QtGui import QIcon, QPixmap, QFont
 
 # labs imports
 from task1 import Iterator1_img, create_csv
@@ -55,21 +55,20 @@ class Example(QWidget):
     # Main window with hello-words and descripition what's going on
     def generalTab(self) -> QWidget:
         '''main window with hello-words and descripition what's going on'''
+        custom_font = QFont()
+        custom_font.setPixelSize(40);        
 
         generalTab = QWidget()
         layout = QVBoxLayout()
-        # layout.addWidget(QPushButton("test1"))
         text = QVBoxLayout()
-        line1 = QLabel("hello there")
-        line2 = QLabel("at showImageTab you can view dataset's imgs")
-        line3 = QLabel("at task1Tab create CSV file for dataset's classes")
-        line4 = QLabel("at task2Tab you can copy dataset to new directory")
-        line5 = QLabel("at task3Tab you can copy dataset with new names")
+        line1 = QLabel("Hello there!")
+        line1.setFont(custom_font)
+        
+        custom_font.setPixelSize(15)
+        line2 = QLabel("At showImageTab you can view dataset's imgs\nAt tasksTab You can:\n - task1: create CSV file for dataset's classes\n - task2: copy dataset to new directory\n - task3: copy dataset with new names")
+        line2.setFont(custom_font)
         text.addWidget(line1)
         text.addWidget(line2)
-        text.addWidget(line3)
-        text.addWidget(line4)
-        text.addWidget(line5)
         layout.addLayout(text)
         layout.addWidget(self.mainBtn)
 
@@ -103,7 +102,7 @@ class Example(QWidget):
         '''function generates tab with all buttons of prev lab'''
         generalTab = QWidget()
         layout = QVBoxLayout()
-
+        
         layout = QVBoxLayout()
         task1 = QPushButton('task1')
         task1.clicked.connect(self.task1)
@@ -118,7 +117,8 @@ class Example(QWidget):
         task3Both = QPushButton('task3Both')
         task3Both.clicked.connect(self.task3Both)
         layout.addWidget(task3Single)
-        layout.addWidget(task3Both)
+        layout.addWidget(task3Both) 
+        layout.addSpacing(100)
 
         layoutRadioButton = QHBoxLayout()
         radiobutton = QRadioButton("zebra")
@@ -138,7 +138,7 @@ class Example(QWidget):
 
         layoutRadioButton.addWidget(radiobutton)
         layout.addLayout(layoutRadioButton)
-
+        
         generalTab.setLayout(layout)
         return generalTab
 
