@@ -12,10 +12,12 @@ def create_dir_copy_randNames(class_name: str, path: str, dst: str) -> None:
 
     dir = os.path.join(path, class_name)
     names = os.listdir(dir)
-    for j in names:
-        print(j)
-        if not ".jpg" in j:
-            names.remove(j)
+
+    names = list(filter(lambda tmp: ".jpg" in tmp, names))
+    # for j in names:
+    #     print(j)
+    #     if not ".jpg" in j:
+    #         names.remove(j)
     print(names)
     tmp = random.sample(range(1, 10001), len(names))
     for i in range(len(names)):
@@ -25,9 +27,10 @@ def create_dir_copy_randNames(class_name: str, path: str, dst: str) -> None:
 
     names = os.listdir(dst)
     with open(os.path.join(dst, f"{class_name}_annotation.csv"), 'w') as file_csv:
-        for i in names:
-            if not ".jpg" in i:
-                names.remove(i)
+        # for i in names:
+        #     if not ".jpg" in i:
+        #         names.remove(i)
+        names = list(filter(lambda tmp: ".jpg" in tmp, names))
         for i in names:
             # writer.writerow(str(os.path.abspath(i) + "," + os.path.join(path, i) + "," + path_dir))
             file_csv.write(os.path.abspath(i) + "," +
@@ -43,16 +46,18 @@ def create_dir_copy_randNames_both(class_name1: str, class_name2: str, path: str
 
     dir = os.path.join(path, class_name1)
     names1 = os.listdir(dir)
-    for it1 in names1:
-        if not ".jpg" in it1:
-            names1.remove(it1)
+    # for it1 in names1:
+    #     if not ".jpg" in it1:
+    #         names1.remove(it1)
+    names1 = list(filter(lambda tmp: ".jpg" in tmp, names1))
     print("len 1", len(names1))
     dir = os.path.join("dataset", class_name2)
 
     names2 = os.listdir(dir)
-    for it2 in names2:
-        if not ".jpg" in it2:
-            names2.remove(it2)
+    # for it2 in names2:
+    #     if not ".jpg" in it2:
+    #         names2.remove(it2)
+    names2 = list(filter(lambda tmp: ".jpg" in tmp, names2))
     print("len 2", len(names2))
     tmp = random.sample(range(1, 10001), len(names1)+len(names2))
     names = names1 + names2
@@ -71,9 +76,10 @@ def create_dir_copy_randNames_both(class_name1: str, class_name2: str, path: str
 
     names = os.listdir(dst)
     with open(os.path.join(dst, "both_random_annotation.csv"), 'w') as file_csv:
-        for i in names:
-            if not ".jpg" in i:
-                names.remove(i)
+        # for i in names:
+        #     if not ".jpg" in i:
+        #         names.remove(i)
+        names = list(filter(lambda tmp: ".jpg" in tmp, names))
         for k in range(len(names1)):
             file_csv.write(os.path.abspath(
                 names[k]) + "," + os.path.join(dst, names[k]) + ","+class_name1)

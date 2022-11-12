@@ -10,9 +10,10 @@ def create_csv(name: str, path: str) -> None:
     print(dir)
     with open(os.path.join(dir, f"{name}_annotation.csv"), 'w') as file_csv:
         # writer = csv.writer(file_csv)
-        for i in names:
-            if not ".jpg" in i:
-                names.remove(i)
+        names = list(filter(lambda tmp: ".jpg" in tmp, names))
+        # for i in names:
+        #     if not ".jpg" in i:
+        #         names.remove(i)
         for i in names:
             # writer.writerow(str(os.path.abspath(i) + "," + os.path.join(path, i) + "," + path_dir))
             file_csv.write(os.path.abspath(i) + "," +
@@ -58,10 +59,12 @@ class Iterator1_img:
         self.name = name
 
         self.names = os.listdir(os.path.join(self.path, self.name))
+
         print(self.names)
-        for i in self.names:
-            if not ".jpg" in i:
-                self.names.remove(i)
+        self.names = list(filter(lambda tmp: ".jpg" in tmp, self.names))
+        # for i in self.names:
+        #     if not ".jpg" in i:
+        #         self.names.remove(i)
         print(self.names)
         self.limit = len(self.names)
         self.counter = 0
