@@ -56,8 +56,7 @@ class Example(QWidget):
     def __generalTab(self) -> QWidget:
         '''main window with hello-words and descripition what's going on'''
         custom_font = QFont()
-        custom_font.setPixelSize(40);        
-
+        custom_font.setPixelSize(40)
         generalTab = QWidget()
         layout = QVBoxLayout()
         text = QVBoxLayout()
