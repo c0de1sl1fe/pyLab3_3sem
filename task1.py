@@ -17,8 +17,16 @@ def create_csv(name: str, path: str) -> None:
         #         names.remove(i)
         for i in names:
             # writer.writerow(str(os.path.abspath(i) + "," + os.path.join(path, i) + "," + path_dir))
-            file_csv.write(os.path.abspath(i) + "," +
+            file_csv.write(os.path.join(os.getcwd(),os.path.join(dir, i)) + "," +
                            os.path.join(dir, i) + "," + name)
+            # file_csv.write(os.path.abspath(i) + "," +
+            #                os.path.join(dir, i) + "," + name)
+
+            # print(os.path.join(os.path.join(os.getcwd, dir), i))
+            # print(os.path.join(os.getcwd(),os.path.join(dir, i)))
+            # print(os.getcwd())
+            # print(dir)
+            # print(i)
             file_csv.write("\n")
     file_csv.close
 
